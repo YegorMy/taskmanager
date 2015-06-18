@@ -1,0 +1,14 @@
+.table-display
+	.table-cell
+		#logo
+			img(src='/imgs/logo.jpg')
+		form.cd-form.login-form
+			.form-group
+				input.form-control(type='text', name='login', placeholder='Эл. почта')
+			.form-group
+				input.form-control(type='password', name='passwd', placeholder='Пароль')
+			.form-group
+				button.btn.btn-dflt Войти
+			.form-group.form-group_center-text
+				a(href='/register') Регистрация
+			.form-group.error#error

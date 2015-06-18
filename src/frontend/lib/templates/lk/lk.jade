@@ -1,0 +1,74 @@
+if data
+	.block-flat
+		form#main.form-horizontal(enctype="multipart/form-data", method='post', action='/api/files/')
+			.form-group
+				.col-xs-3
+					label Имя
+				.col-xs-9
+					input.form-control(type='text', value = data.name, name='name')
+			.form-group
+				.col-xs-3
+					label Фамилия
+				.col-xs-9
+					input.form-control(type='text', value = data.surname, name='surname')
+			.form-group
+				.col-xs-3
+					label Логин
+				.col-xs-9
+					input.form-control(type='text', name='login', value = data.login)
+			.form-group
+				.col-xs-3
+					label E-mail
+				.col-xs-9
+					input.form-control(type='email', name='email', value = data.email)
+
+			.form-group
+				.col-xs-3
+					label Статус
+				.col-xs-9
+					select.replace(name='status')
+						each status in ['Занят', 'Свободен', 'В активном поиске']
+							option(value=status,  selected = data.status == status)=status
+
+			.form-group
+				.col-xs-3
+					label Аватар
+				.col-xs-2
+					img#avatar_photo(src=data ? data.avatar : '', style='display:' + (data ? 'block' : 'none'))
+				.col-xs-7
+					input#avatar(type='file', name='_avatar')
+
+			.form-group
+				.col-xs-12
+					h4 Смена пароля
+
+			.margin-left
+				.form-group
+					.col-xs-3
+						label Новый пароль
+					.col-xs-9
+						input.form-control(type='password', name='pass')
+				.form-group
+					.col-xs-3
+						label Еще раз
+					.col-xs-9
+						input.form-control(type='password', name='passAgain')
+				.clearfix
+
+			.from-group
+				.btn-group
+					button.btn.btn-danger._cancel(type='button') Отмена
+					button.btn.btn-primary Сохранить
+
+	.block-flat
+		form#task_creators.form-horizontal
+			.form-group
+				.col-xs-12
+					h4 Кто может ставить мне задачи
+			.form-group
+				.col-xs-12
+					select#taskCreators.multi(multiple='true', name='taskCreators')
+			.form-group
+				.col-xs-12
+					button.btn.btn-primary Сохранить
+		.clearfix

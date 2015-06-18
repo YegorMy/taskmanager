@@ -1,0 +1,11 @@
+[
+  {
+    "mongoose": {
+      "server": "localhost",
+      "database": "Taska"
+    },
+    "api_path": "/api/",
+    "basic_template": "layout",
+    "port": 3001
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "name": "taska",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "bootstrap": "~3.3.2",
+    "domReady": "~2.0.1",
+    "jade": "~1.9.2",
+    "async": "*",
+    "jquery": "~1.10.1",
+    "requirejs": "~2.1.15",
+    "eonasdan-bootstrap-datetimepicker": "~4.0.0"
+  }
+}

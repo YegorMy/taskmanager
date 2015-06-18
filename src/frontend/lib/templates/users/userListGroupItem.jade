@@ -1,0 +1,14 @@
+li.list-group-item
+	.col-xs-2
+		img#avatar_photo(src=user.avatar, style='display:block;')
+	.col-xs-10
+		h4
+			a(href='/users/' + user._id)= user._name
+		span.datetime= user.status
+		p
+			| Открытые задачи:&nbsp;
+			=user.open_task
+		p
+			| Закрытые задачи:&nbsp;
+			=user.closed_task
+	.clearfix

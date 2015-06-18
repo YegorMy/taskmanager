@@ -1,0 +1,10 @@
+li.list-group-item
+	h4= data.user_id.name + ' ' + data.user_id.surname
+	span.datetime= data.formatedDateTime
+	p= data.text
+
+	//
+		if data.files
+			.space
+			for file in data.files
+				a(href="/uploads/" + file.name, target='_blank')= file.originalname

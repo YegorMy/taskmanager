@@ -1,0 +1,138 @@
+form.form-horizontal
+	-var isPerformer = false
+	-var printParent = !!data.parent_task_id
+	-var isCreator   = user.id == data.created_id._id
+	-var isResponsible = false
+
+	if data._performer_ids.indexOf(user.id) + 1
+		-isPerformer = true
+
+	if data.responsible_id._id == user.id
+		-isResponsible = true
+
+	if data.project && printParent
+
+		if data.project._id.toString() == data.parent_task_id._id.toString()
+
+			-printParent = false
+
+	if !data.is_declined
+		.btn-group
+			if (isCreator || isResponsible || isPerformer) && !data.is_completed && !data.is_declined
+				if isCreator
+					a(href='/task/' + data._id + '/edit').btn.btn-primary.edit Редактировать
+				if (isCreator || isResponsible)
+					button(type='button').btn.btn-danger#decline Отменить
+				a.btn.btn-default(href='/task/new/?supertask=' + data._id) Создать подзадачу
+	.clearfix
+
+
+
+	if data
+		.block-flat
+			h4= data.title
+			p=  data.text
+
+			if !data.is_declined && !data.is_completed && data.readiness < 100
+				p
+					b Готовность
+				.col-xs-6
+					.progress#readiness
+						.progress-bar.progress-bar-striped(role='progressbar', aria-valuenow=data.readiness, aria-valuemin='0', aria-valuemax='100', style='width: ' + data.readiness + '%;')
+							=data.readiness + '%'
+						.tooltip.bottom#tooltip(role='tooltip')
+							.tooltip-arrow
+							.tooltip-inner
+				.clearfix
+			else
+
+				p
+					b Статус
+
+					.margin-left
+						=data.status
+
+			if data.project
+				p
+					b Проект
+				.margin-left
+					p
+						a(href='/task/' + data.project._id)=data.project.title
+			if printParent
+				p
+					b Родительская задача
+				.margin-left
+					p
+						a(href=data.parent_task_id._id)= data.parent_task_id.title
+			if data.subtasks.length
+				p
+					b Подзадачи
+				.margin-left
+					each d in data.subtasks
+						p
+							a(href='/task/' + d._id)= d.title
+			p
+				b Назначил:
+			.margin-left
+				p= data.created_id.name + ' ' + data.created_id.surname
+
+			p
+				b Дата создания
+			.margin-left
+				p= data.created_date_print
+
+			if !data.is_declined && !data.is_closed && !data.is_completed
+				p
+					b Дата сдачи
+				.margin-left
+					-var cl = ''
+					if data.prosrana
+						-cl = 'text-danger'
+
+					p(class=cl)= data.date_to_print
+			else
+				p
+					b
+						= "Дата "
+						=data.is_declined ? 'отмены' : data.is_closed ? 'закрытия' : 'выполнения'
+				.margin-left
+					p= data.closed_date
+
+			if data.performer_ids
+				p
+					b Назначена:
+				div.margin-left
+					each u in data.performer_ids
+						p= u.name + ' ' + u.surname
+			p
+				b Ответственный:
+			div.margin-left
+				p= data.responsible_id.name + ' ' + data.responsible_id.surname
+
+			if data
+				if data.files.length
+					p
+						b Файлы:
+
+
+						div.margin-left
+							if data.files
+								each file in data.files
+									.file-element
+										a(href='/uploads/' + file.name, target='_blank')= file.originalname
+
+		.block-flat#comment_block
+			h3 Комментарии
+			ul.list-group#comments
+
+			if !data.closed_date
+				.col-xs-12
+					textarea.form-control(placeholder='Комментарий . . .')
+				.col-xs-6
+					button#sendComment.btn.btn-primary(type='button') Отправить комментарий
+				//.col-xs-6
+					button.btn.btn-default#attachFiles.right(type='button') Прикрепить файлы
+					.clearfix
+					#comment_files
+					input#file_emitter(type='file', multiple='true')
+				.clearfix

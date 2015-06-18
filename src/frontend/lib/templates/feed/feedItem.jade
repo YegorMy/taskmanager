@@ -1,0 +1,12 @@
+li.list-group-item
+	.col-xs-2
+		img.avatar(src=data.user_id.avatar, alt='Аватар')
+	.col-xs-10
+		-var text = data.readiness ? data.feed_text.replace('%readiness%', data.readiness) : data.feed_text
+		h4
+			a(href='/users/' + data.user_id.id)= data.user_id._name
+		span.datetime= data.formated_created_date
+		p= text
+			| &nbsp;
+			a(href='/task/' + data.task_id._id)= data.task_id.title
+	.clearfix

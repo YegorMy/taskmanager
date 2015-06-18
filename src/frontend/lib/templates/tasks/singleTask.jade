@@ -1,0 +1,36 @@
+li.list-group-item
+	h4
+		if task.project
+			a(href='/task/' + task.project._id)=task.project.title
+			sup.datetime Проект
+			| &nbsp;/&nbsp;
+		a(href='/task/' + task._id)=task.title
+	p
+		| Ответственный:&nbsp;
+		b= task.responsible_id.name + ' ' + task.responsible_id.surname
+
+	if !task.is_declined && !task.is_completed
+		p
+			| Готовность:&nbsp;
+			.progress
+				.progress-bar.progress-bar-striped(role='progressbar', aria-valuenow=task.readiness, aria-valuemin='0', aria-valuemax='100', style='width: ' + task.readiness + '%;')
+					=task.readiness + '%'
+
+		p
+			| Дата сдачи:
+			-var cl = ''
+
+			if task.prosrana
+				-cl = 'text-danger'
+			b(class=cl)= ' ' + task.date_to_print
+	else
+		p
+			| Задача&nbsp;
+			=task.status.toLowerCase()
+	p
+		| Комментарии:&nbsp;
+		= task.comments
+	p
+		| Подзадачи:&nbsp;
+		= task.subtasks
+	.clearfix

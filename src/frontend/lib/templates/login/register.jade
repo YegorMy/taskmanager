@@ -1,0 +1,65 @@
+.table-display
+	.table-cell
+		#logo
+			img(src='/imgs/logo.jpg')
+		form.cd-form.login-form#register-form
+			.form-group
+				.col-xs-3
+					label Эл. почта
+				.col-xs-9
+					input.form-control(type='text', name='email')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Пароль
+				.col-xs-9
+					input.form-control(type='password', name='passwd')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Повторите пароль
+				.col-xs-9
+					input.form-control(type='password', name='passwd1')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Имя
+				.col-xs-9
+					input.form-control(type='text', name='name')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Фамилия
+				.col-xs-9
+					input.form-control(type='text', name='surname')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Должность
+				.col-xs-9
+					input.form-control(type='text', name='pos')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Дата рождения
+				.col-xs-9
+					input.form-control(type='text', name='dateofbirth')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Раб. телефон
+				.col-xs-9
+					input.form-control(type='text', name='workphone')
+				.clearfix
+			.form-group
+				.col-xs-3
+					label Моб. телефон
+				.col-xs-9
+					input.form-control(type='text', name='mobphone')
+				.clearfix
+				
+			.form-group
+				button.btn.btn-dflt Регистрация
+			.form-group.form-group_center-text
+				a(href='/login') Войти
+			.form-group#error

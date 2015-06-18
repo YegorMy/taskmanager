@@ -1,0 +1,59 @@
+form.form-horizontal(enctype="multipart/form-data")
+	.form-group
+		label.col-xs-3 Заголовок
+		.col-xs-9
+			input.form-control(type='text', name='title', value=data ? data.title : '')
+	.form-group
+		label.col-xs-3 Текст
+		.col-xs-9
+			textarea.form-control(name='text')= data ? data.text : ''
+	.form-group
+		label.col-xs-3 Файлы
+		.col-xs-5
+			input#files(type='file', name='_files', multiple=true)
+		.col-xs-4
+			#files_container
+				if data
+					for file in data.files
+						include fileElement
+	.form-group
+		label.col-xs-3 Дата
+		.col-xs-3
+			.input-group
+				input.form-control.datepicker(type='text', name='date_to', value=data ? data.date_to_edit : null)
+				span.input-group-addon
+					i.fa.fa-calendar
+	.form-group
+		label.col-xs-3 Ответственный
+		.col-xs-9
+			select.replace#responsible(name='responsible_id')
+	.form-group
+		label.col-xs-3 Исполнители
+		.col-xs-9
+			select(name='performer_ids', multiple='multiple')#userMultiSelect.multi
+	#subtask_for
+
+
+	if data
+		input(type='hidden', name='_performer_ids', value = data._performer_ids.join(' '))
+		input(type='hidden', name='_responsible_id', value = data.responsible_id._id)
+
+	.form-group
+		.col-xs-3.right
+			.btn-group
+				button.btn.btn-danger._cancel Отменить
+				button.btn.btn-primary Сохранить
+
+	.form-group.error
+		.alert.alert-danger(role='alert')
+			p
+
+	.form-group.success
+		.alert.alert-success(role='alert')
+			p
+
+	#task_file_containers
+		if data
+			for file, num in data.files
+				input(type='hidden', name='files[' + num + '][0]', value = file.originalname)
+				input(type='hidden', name='files[' + num + '][1]', value = file.name)
